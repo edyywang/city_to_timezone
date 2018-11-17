@@ -28,11 +28,11 @@ end
 
 def find_timezone_by(city, country)
   timezone = ''
-  city = city.gsub("市", "").gsub("city","").strip().downcase
+  city = city.gsub("市", "").gsub("city","").strip.downcase
   tz_df = $timezone_df.where($timezone_df['country_code'].eq(country.upcase))
-  tz_df.where(tz_df['cityname'].map{|row| row.include?(city)}).first.timezone.first or
-  tz_df.where(tz_df['asciiname'].map{|row| row.include?(city)}).first.timezone.first or
-  tz_df.where(tz_df['alternatenames'].map{|row| row.include?(city)}).first.timezone.first or ''
+  tz_df.where(tz_df['cityname'].map{|row| row.include?(city)}).timezone.first or
+  tz_df.where(tz_df['asciiname'].map{|row| row.include?(city)}).timezone.first or
+  tz_df.where(tz_df['alternatenames'].map{|row| row.include?(city)}).timezone.first or ''
 end
 
 # initialize
@@ -46,3 +46,4 @@ find_timezone_by("台中市", "TW")
 find_timezone_by("台中", "TW")
 find_timezone_by("XXX", "TW")
 find_timezone_by("ABC", "XXX")
+find_timezone_by("","")
